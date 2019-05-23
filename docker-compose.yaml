@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+
+  php-fpm:
+    build: .docker/php-fpm
+    volumes:
+     - ./:/var/www/symfony-test
+    networks:
+      - backend
+    links:
+      - postgres
+
+  nginx:
+    build: .docker/nginx
+    volumes:
+      - ./:/var/www/symfony-test
+    networks:
+      - backend
+    ports:
+      - "8888:80"
+    links:
+      - php-fpm
+
+  postgres:
+      image: postgres:10.1
+      restart: always
+      environment:
+        - POSTGRES_DB=books
+        - POSTGRES_USER=schoolboy
+        - POSTGRES_PASSWORD=very_secure
+      ports:
+        - 5432:5432
+      networks:
+        - backend
+
+networks:
+  backend:
