@@ -14,6 +14,10 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 final class NestedSetCategoryAdmin extends AbstractAdmin
 {
+    protected $datagridValues = [
+        '_sort_order' => 'ASC',
+        '_sort_by' => 'lft'
+    ];
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {

@@ -34,7 +34,7 @@ final class BlogPostAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('title')
-            ->add('body')
+            ->add('body', 'html')
             ->add('category')
             ->add('_action', null, [
                 'actions' => [
@@ -66,7 +66,7 @@ final class BlogPostAdmin extends AbstractAdmin
         $showMapper
             ->add('id')
             ->add('title')
-            ->add('body')
+            ->add('body', 'html')
             ->add('category')
             ;
     }
