@@ -54,3 +54,10 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: 'ManyToMany', label: Twit }
         public: true
+
+    admin.nested_set_category:
+        class: App\Admin\NestedSetCategoryAdmin
+        arguments: [~, App\Entity\NestedSetCategory, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Nested Sets', label: NestedSetCategory }
+        public: true
