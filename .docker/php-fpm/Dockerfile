@@ -5,10 +5,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         wget \
         zip \
         unzip \
+        curl \
         libzip-dev \
         libxml2-dev \
         libpq-dev \
         libssh-dev \
+        zlib1g-dev \
+        libpng-dev \
+        libjpeg-dev \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
     && docker-php-ext-install \
         pdo_mysql \
         zip \
@@ -21,6 +27,12 @@ RUN mkdir -pv /var/www/symfony-test/storage \
     && chown -R www-data:www-data /var/www/symfony-test/storage \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo pdo_pgsql pgsql
+
+RUN docker-php-ext-configure gd \
+    --enable-gd-native-ttf \
+    --with-jpeg-dir=/usr/lib \
+    --with-freetype-dir=/usr/include/freetype2 && \
+    docker-php-ext-install gd
 
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
 

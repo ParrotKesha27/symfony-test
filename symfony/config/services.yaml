@@ -24,6 +24,8 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    Cocur\Slugify\Slugify:
+        autowire: true
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
@@ -60,4 +62,11 @@ services:
         arguments: [~, App\Entity\NestedSetCategory, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: 'Nested Sets', label: NestedSetCategory }
+        public: true
+
+    admin.images:
+        class: App\Admin\ImagesAdmin
+        arguments: [~, App\Entity\Images, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Images', label: Images }
         public: true
