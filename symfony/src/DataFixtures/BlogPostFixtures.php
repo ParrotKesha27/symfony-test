@@ -15,7 +15,6 @@ class BlogPostFixtures extends BaseFixture implements DependentFixtureInterface
         $this->createMany(BlogPost::class, 25, function (BlogPost $post) {
             $post->setTitle($this->faker->text(25));
             $post->setBody($this->faker->text(1000));
-            $post->setCreatedAt($this->faker->dateTimeBetween('-1 years', '-1 day'));
             $post->setCategory($this->getRandomReference(Category::class));
         });
 

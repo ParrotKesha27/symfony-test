@@ -4,12 +4,15 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BlogPostRepository")
  */
 class BlogPost
 {
+    use TimestampableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -38,11 +41,6 @@ class BlogPost
      * @Gedmo\Slug(fields={"title"})
      */
     private $slug;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
 
     public function getId(): ?int
     {
@@ -93,16 +91,6 @@ class BlogPost
     public function setSlug(string $slug)
     {
         $this->slug = $slug;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt)
-    {
-        $this->createdAt = $createdAt;
     }
 
     public function __toString(): string
