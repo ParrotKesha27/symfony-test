@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\BlogPost;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,7 +32,7 @@ class PostController extends AbstractController
      * @throws \Exception
      * @Route("/posts/new", name="post_new")
      */
-    public function addPost(Request $request, Slugify $slugify)
+    public function addPost(Request $request, Slugify $slugify, EntityManagerInterface $em)
     {
         $post = new BlogPost();
         $form = $this->createForm(BlogPostType::class, $post);
@@ -42,7 +43,6 @@ class PostController extends AbstractController
             $post->setSlug($slugify->slugify($post->getTitle()));
             $post->setCreatedAt(new \DateTime());
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($post);
             $em->flush();
 

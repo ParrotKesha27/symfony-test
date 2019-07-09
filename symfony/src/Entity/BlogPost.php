@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BlogPostRepository")
@@ -34,6 +35,7 @@ class BlogPost
 
     /**
      * @ORM\Column(type="string", nullable=false)
+     * @Gedmo\Slug(fields={"title"})
      */
     private $slug;
 

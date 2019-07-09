@@ -5,6 +5,7 @@
 {% block body %}
     <h1 class="display-4">{{ post.title }}</h1>
     <p class="lead">{{ post.body }}</p>
+    <p>{{ post.createdAt|ago }}</p>
     <a class="btn btn-primary" href="{{ path('blog_edit', {'slug': post.slug}) }}">Редактировать</a>
     <a class="btn btn-danger" href="{{ path('blog_delete', {'slug': post.slug}) }}">Удалить</a>
 {% endblock %}

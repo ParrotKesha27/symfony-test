@@ -179,6 +179,9 @@
     "knplabs/knp-menu-bundle": {
         "version": "v2.2.1"
     },
+    "knplabs/knp-time-bundle": {
+        "version": "v1.9.1"
+    },
     "kriswallsmith/buzz": {
         "version": "v0.16.1"
     },

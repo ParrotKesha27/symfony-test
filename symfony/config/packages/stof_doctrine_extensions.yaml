@@ -7,6 +7,7 @@ stof_doctrine_extensions:
     default:
       tree: true
       timestampable: false
+      sluggable: true
     other:
       timestampable: false
 

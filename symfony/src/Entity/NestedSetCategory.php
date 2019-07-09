@@ -70,14 +70,14 @@ class NestedSetCategory
         return $this->id;
     }
 
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
     public function getTitle()
     {
         return $this->title;
+    }
+
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
 
     public function getRoot()
@@ -85,14 +85,67 @@ class NestedSetCategory
         return $this->root;
     }
 
-    public function setParent(NestedSetCategory $parent = null)
+    public function setRoot(NestedSetCategory $root = null)
     {
-        $this->parent = $parent;
+        $this->root = $root;
     }
 
     public function getParent()
     {
         return $this->parent;
+    }
+
+    public function setParent(NestedSetCategory $parent = null)
+    {
+        $this->parent = $parent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLft()
+    {
+        return $this->lft;
+    }
+
+    /**
+     * @param mixed $lft
+     */
+    public function setLft($lft): void
+    {
+        $this->lft = $lft;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLvl()
+    {
+        return $this->lvl;
+    }
+
+    /**
+     * @param mixed $lvl
+     */
+    public function setLvl($lvl): void
+    {
+        $this->lvl = $lvl;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRgt()
+    {
+        return $this->rgt;
+    }
+
+    /**
+     * @param mixed $rgt
+     */
+    public function setRgt($rgt): void
+    {
+        $this->rgt = $rgt;
     }
 
     public function __toString()

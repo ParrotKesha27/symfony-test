@@ -6,7 +6,7 @@ security:
         in_memory: { memory: ~ }
         database_users:
             entity:
-                class: App\Entity\User,
+                class: App\Entity\User
                 property: email
     firewalls:
         dev:
@@ -14,6 +14,13 @@ security:
             security: false
         main:
             anonymous: true
+            form_login:
+                provider: database_users
+                check_path: login
+                login_path: login
+                default_target_path: homepage
+            logout:
+                path: logout
 
             # activate different ways to authenticate
 
