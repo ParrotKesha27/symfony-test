@@ -17,20 +17,19 @@ cd symfony
 composer install
 ```
 
-4. Создать схему базы данных
+4. Выполнить установку npm-модулей и Encore
+```
+npm install
+./node_modules/.bin/encore dev
+```
+
+5. Создать схему базы данных
 
 `bin/console doctrine:schema:create`
 
-5. Для Nested Set вручную создать корневой элемент, от которого будет происходить наследование со следующими параметрами:
-```$xslt
-id: 0
-root_id: 0
-parent_id: 0
-lft: 0
-rgt: 1
-lvl: 1
-title: <string(255)>
-```
+6. Загрузить фикстуры
+
+`bin/console doctrine:fixtures:load`
 
 Проект доступен по адресу http://0.0.0.0:8888
 
