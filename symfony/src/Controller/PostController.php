@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\BlogPost;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,34 +16,34 @@ class PostController extends AbstractController
     /**
      * @Route("/posts", name="blog_post")
      */
-    public function posts()
+    public function posts(Request $request, PaginatorInterface $paginator)
     {
+        $title = $request->query->get('title');
         $repository = $this->getDoctrine()->getRepository(BlogPost::class);
-        $posts = $repository->findAll();
+        $queryBuilder = $repository->getWithSearchQueryBuilder($title);
+
+        $pagination = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            10
+        );
 
         return $this->render('post/index.html.twig', [
-            'posts' => $posts,
+            'pagination' => $pagination,
         ]);
     }
 
     /**
-     * @param Request $request
-     * @param Slugify $slugify
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
      * @Route("/posts/new", name="post_new")
      */
-    public function addPost(Request $request, Slugify $slugify, EntityManagerInterface $em)
+    public function addPost(Request $request, EntityManagerInterface $em)
     {
         $post = new BlogPost();
         $form = $this->createForm(BlogPostType::class, $post);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
+        if ($form->isSubmitted() && $form->isValid())
         {
-            $post->setSlug($slugify->slugify($post->getTitle()));
-            $post->setCreatedAt(new \DateTime());
-
             $em->persist($post);
             $em->flush();
 
@@ -51,22 +52,6 @@ class PostController extends AbstractController
 
         return $this->render('post/new.html.twig', [
             'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/posts/search", name="blog_search")
-     */
-    public function search(Request $request)
-    {
-        $query = $request->query->get('title');
-        $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository(BlogPost::class)->searchByTitle($query);
-
-        return $this->render('post/search_result.html.twig', [
-            'posts' => $posts
         ]);
     }
 

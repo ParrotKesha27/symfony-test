@@ -12,7 +12,7 @@ class BlogPostFixtures extends BaseFixture implements DependentFixtureInterface
 {
     protected function loadData(ObjectManager $manager)
     {
-        $this->createMany(BlogPost::class, 25, function (BlogPost $post) {
+        $this->createMany(BlogPost::class, 100, function (BlogPost $post) {
             $post->setTitle($this->faker->text(25));
             $post->setBody($this->faker->text(1000));
             $post->setCategory($this->getRandomReference(Category::class));

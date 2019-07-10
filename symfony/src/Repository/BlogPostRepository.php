@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\BlogPost;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -26,6 +27,25 @@ class BlogPostRepository extends ServiceEntityRepository
             ->setParameter('title', $title)
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @param string|null $term
+     * @return QueryBuilder
+     */
+    public function getWithSearchQueryBuilder(?string $term): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        if ($term)
+        {
+            $qb->andWhere('p.title LIKE :term')
+                ->setParameter('term', '%'.$term.'%');
+            ;
+        }
+
+        return $qb;
+
     }
 
     // /**
