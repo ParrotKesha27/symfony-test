@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         zip \
         unzip \
         curl \
+        gnupg2 \
         libzip-dev \
         libxml2-dev \
         libpq-dev \
@@ -27,6 +28,9 @@ RUN mkdir -pv /var/www/symfony-test/storage \
     && chown -R www-data:www-data /var/www/symfony-test/storage \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo pdo_pgsql pgsql
+
+RUN rm -rf /var/lib/apt/lists/ && curl -sL "https://deb.nodesource.com/setup_12.x" | bash -
+RUN apt-get install nodejs -y
 
 RUN docker-php-ext-configure gd \
     --enable-gd-native-ttf \
